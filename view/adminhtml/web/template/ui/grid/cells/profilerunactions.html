@@ -1,0 +1,80 @@
+<!--
+/**
+* Magento Module developed by NoStress Commerce
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to info@nostresscommerce.cz so we can send you a copy immediately.
+*
+* @copyright Copyright (c) 2015 NoStress Commerce (http://www.nostresscommerce.cz)
+*
+*/
+-->
+<!-- ko if: $col.isSingle($row()._rowIndex) -->
+<a
+    class="action-menu-item"
+    data-bind="
+        repeat: {
+            foreach: $col.getVisibleActions($row()._rowIndex),
+            item: '$action'
+        }"
+    data-repeat-bind="
+        attr: {
+            href: $action().href
+        },
+        click: $col.getActionHandler($action()),
+        text: $action().label"
+    ></a>
+<!-- /ko -->
+
+<!-- ko if: $col.isMultiple($row()._rowIndex) -->
+<div
+    class="action-select-wrap relative"
+    data-bind="collapsible">   
+    
+    <div class="actions-split" title="Profile Execution" id="profile_run_actions">    
+	    <button class="action-default primary add" id="profile_run_actions-button" data-bind="	                   
+	                    text: $col.getVisibleActions($row()._rowIndex)[0].label,	                    
+	                    click: function() { location.href = $col.getVisibleActions($row()._rowIndex)[0].href;} , 
+	                    title: $col.getVisibleActions($row()._rowIndex)[0].label,
+	                    attr: { disabled: !$col.isLicenseValid($row())}">
+	        <span>Attributes</span>
+	    </button>
+        <button class="action-toggle primary add" data-bind="toggleCollapsible, attr: { disabled: !$col.isLicenseValid($row())}">
+        	<span data-bind="i18n: 'Select'"></span>
+		</button>
+		<!-- ko if: $col.isLicenseValid($row()) -->
+	    <ul
+	        class="dropdown-menu"
+	        data-bind="
+	            css: {'_active': $collapsible.opened} ">
+	        <li
+	            data-bind="
+	                repeat: {
+	                    foreach: $col.getVisibleActions($row()._rowIndex),
+	                    item: '$action'
+	                },
+	                ">
+           	                
+	            <a
+	                class="action-menu-item profile-run-menu-item"
+	                data-bind="	                	
+	                    attr: {
+	                        href: $action().href,
+	                        id: 'profile-run-menu-item' + $action().index
+	                    },
+	                    click: $col.getActionHandler($action()),
+	                    text: $action().label,	                    
+	                    visible: $action().index != 'run_profile'"></a>	       
+	        </li>        
+	    </ul>
+	    <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

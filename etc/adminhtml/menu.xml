@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Module developed by NoStress Commerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@nostresscommerce.cz so we can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2015 NoStress Commerce (http://www.nostresscommerce.cz)
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Nostress_Koongo::koongo" title="Koongo" module="Nostress_Koongo" sortOrder="25" dependsOnModule="Nostress_Koongo" resource="Nostress_Koongo::koongo"/>
+        <add id="Nostress_Koongo::koongo_channel_profile" title="Export Profiles" module="Nostress_Koongo" sortOrder="10" parent="Nostress_Koongo::koongo" action="koongo/channel_profile/" resource="Nostress_Koongo::koongo_channel_profile"/>        
+        <add id="Nostress_Koongo::koongo_configuration" title="Configuration" module="Nostress_Koongo" sortOrder="50" parent="Nostress_Koongo::koongo" action="adminhtml/system_config/edit/section/koongo_config/" resource="Nostress_Koongo::configuration"/>
+        <add id="Nostress_Koongo::koongo_license" title="License" module="Nostress_Koongo" sortOrder="100" parent="Nostress_Koongo::koongo" action="adminhtml/system_config/edit/section/koongo_license/" resource="Nostress_Koongo::license"/>       
+    </menu>
+</config>

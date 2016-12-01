@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Magento Module developed by NoStress Commerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@nostresscommerce.cz so we can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2015 NoStress Commerce (http://www.nostresscommerce.cz)
+ *
+ */
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <head>
+    	<css src="Nostress_Koongo::css/Koongo.css"/>
+	</head>
+    <body>
+    	<referenceContainer name="page.main.actions">
+            <block class="Nostress\Koongo\Block\Adminhtml\Help\Tooltip" name="help" as="help">
+            	<action method="setKey">
+                    <argument name="params" xsi:type="string">schedule</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Nostress\Koongo\Block\Adminhtml\Channel\Profile\Cron\Edit" name="nostress_koongo_channel_profile_edit_cron">
+		        <block class="Nostress\Koongo\Block\Adminhtml\Channel\Profile\Cron\Edit\Rulestable" name="nostress_koongo_channel_profile_cron_edit_rules_table" as="cron_rules_table"/>		          			        
+	        </block>
+        </referenceContainer>   
+    </body>
+</page>

@@ -1,0 +1,115 @@
+<?php
+/**
+ * Magento Module developed by NoStress Commerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@nostresscommerce.cz so we can send you a copy immediately.
+ *
+ * @copyright Copyright (c) 2015 NoStress Commerce (http://www.nostresscommerce.cz)
+ *
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block Nostress\Koongo\Block\Adminhtml\Channel\Profile\General\Edit\Tab\Main\Attributes */
+?>
+
+<?php $attributes = $block->getStandardAttributesItems();?>
+<?php if(!empty($attributes)):?>
+	<fieldset class="fieldset" id="channel_profile_attributes_mapping_table_fieldset" data-bind="scope: '<?= /* @escapeNotVerified */  $block->getComponentName()?>'">
+	    <legend class="legend">
+	       <span>
+	           <?php /* @escapeNotVerified */ echo __('Attributes Mapping Table') ?>
+	           <?php echo $this->getTooltip(); ?>
+	       </span>
+	       	       
+	       
+	    </legend>
+	    <?php echo __("Map Magento attributes onto %1 attributes using the attributes mapping table below.",$block->getChannelLabel())?>
+	    <div id="manage-attributes-table">
+			<?php echo $block->getChildHtml('attributes_table_grid');?>
+	    </div>
+		
+		                             
+	    <div data-role="attribute-settings-dialog" id="attribute-settings-dialog"
+	         class="no-display">
+	         
+	         <!-- Attribute Settings -->
+			<div class="entry-edit" data-bind="scope: '<?= /* @escapeNotVerified */  $block->getComponentName()?>'">
+				 <!-- ko if: (attributes().length > 0) -->
+	        	<?php echo $block->getChildHtml('attributes_table_grid_modal_settings');?>
+	        	<!-- /ko -->
+			</div>
+	    </div>
+	    
+	    <div data-role="attribute-info-dialog" id="attribute-info-dialog"
+	         class="no-display">
+	                  
+	         <!-- Attribute Info -->
+	         <div class="entry-edit" data-bind="scope: '<?= /* @escapeNotVerified */  $block->getComponentName()?>'">
+	         	 <!-- ko if: (attributes().length > 0) -->
+	         	 <?php echo $block->getChildHtml('attributes_table_grid_modal_info');?>
+	         	 <!-- /ko -->
+			</div>
+	    </div>
+	</fieldset>
+	
+	<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @escapeNotVerified */  $block->getComponentName()?>": {
+                        "component": "Nostress_Koongo/js/channel/profile/editgeneral/attributes",
+						"attributeSource": <?php echo $block->getStandardAttributesJson(); ?>
+                    }
+                }
+            }
+        }
+    }
+	</script>
+	
+	<script type="text/javascript">
+    // init modal after knockout data binding
+require([
+         "jquery",
+         'mage/template',
+         'text!Nostress_Koongo/templates/tooltip.html',
+         "Magento_Ui/js/modal/modal"
+     ], function($, mageTemplate, tooltipTemplate){
+
+         var channelLabel = '<?php echo $block->getChannelLabel(); ?>';
+         var tooltipSettingsUrl =  '<?php echo $block->getHelp( 'attributes_advanced_settings'); ?>';
+
+         var tooltipHtml = tooltipSettingsUrl ? mageTemplate( tooltipTemplate, { url: tooltipSettingsUrl}) : '';
+	 	
+	
+        $('#attribute-settings-dialog').modal({
+        	title: channelLabel + ' ' + $.mage.__('Attribute') + ": <strong class='settings-title-suffix'></strong>" + tooltipHtml,
+            type: 'slide',
+            buttons: [
+              {
+                  text: $.mage.__('Done'),
+                  class: 'primary',
+                  click: function () {
+                  	this.closeModal();
+                  }
+              }
+            ]
+        });
+
+        $('#attribute-info-dialog').modal({
+            type: 'popup',
+            buttons: []
+        });
+    });
+</script>
+	
+<?php endif;?>
